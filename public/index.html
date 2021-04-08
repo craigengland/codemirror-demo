@@ -8,8 +8,41 @@
     <title>Playground</title>
   </head>
   <body>
-    <h1 style="text-align: center; margin: 1rem 0">Playground</h1>
+    <h1 style="text-align: center">Code Editors</h1>
+    <h2 style="text-align: center; margin: 1rem 0">CodeMirror</h2>
+    <select
+      name="theme"
+      id="theme"
+      style="margin: auto; display: block; margin-bottom: 40px"
+    >
+      <option value="default" selected="selected">Default</option>
+      <option value="cobalt">Cobalt</option>
+    </select>
+    <textarea name="" id="" cols="30" rows="10" class="code">
+function add(a, b) {
+  return a + b;
+}
+</textarea
+    >
 
+    <h2 style="text-align: center; margin: 1rem 0">Monaco</h2>
+    <select
+      name="monaco-theme"
+      id="monaco-theme"
+      style="margin: auto; display: block; margin-bottom: 40px"
+    >
+      <option value="vs" selected="selected">Default</option>
+      <option value="vs-dark">Dark</option>
+    </select>
+    <div
+      id="container"
+      style="
+        width: 800px;
+        height: 300px;
+        border: 1px solid gainsboro;
+        margin: auto;
+      "
+    ></div>
     <script src="../dist/main.js"></script>
   </body>
 </html>

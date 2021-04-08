@@ -2,19 +2,29 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const libraryName = 'Name';
 
 module.exports = {
   entry: ['./src/main.js'],
   mode: 'none',
-  plugins: [new MiniCssExtractPlugin({ filename: '[name].css' })],
+  plugins: [
+    new MiniCssExtractPlugin({ filename: '[name].css' }),
+    new MonacoWebpackPlugin({
+      languages: ['javascript'],
+    }),
+  ],
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader',
+      },
+      {
+        test: /\.ttf$/,
+        use: ['file-loader'],
       },
       {
         test: /\.css$/,

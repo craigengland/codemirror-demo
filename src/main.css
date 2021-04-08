@@ -1,0 +1,8 @@
+@import 'codemirror/lib/codemirror.css';
+@import 'codemirror/theme/cobalt.css';
+
+.CodeMirror {
+  border: 1px solid #eae9e9;
+  max-width: 800px;
+  margin: auto;
+}
