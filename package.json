@@ -1,5 +1,5 @@
 {
-  "name": "boilerplate-webpack",
+  "name": "codemirror-demo",
   "version": "0.0.22",
   "description": "A cookie consent plugin",
   "main": "./dist/main.js",
@@ -10,17 +10,12 @@
   },
   "author": "Craig England",
   "license": "MIT",
-  "keywords": [
-    "cookie consent",
-    "vanilla js",
-    "cookies"
-  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/craigengland/webpack-starter"
+    "url": "https://github.com/craigengland/codemirror-demo"
   },
   "bugs": {
-    "url": "https://github.com/craigengland/webpack-starter/issues"
+    "url": "https://github.com/craigengland/codemirror-demo/issues"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.10",
@@ -40,6 +35,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "codemirror": "^5.60.0",
     "events": "^3.3.0"
   },
   "jest": {
