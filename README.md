@@ -1,4 +1,4 @@
-# Webpack Starter
+# CodeMirror Demo
 
 ## Setup
 
