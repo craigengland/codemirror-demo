@@ -38,9 +38,11 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "codejar": "^3.4.0",
     "codemirror": "^5.60.0",
     "events": "^3.3.0",
-    "monaco-editor": "^0.23.0"
+    "monaco-editor": "^0.23.0",
+    "prismjs": "^1.23.0"
   },
   "jest": {
     "moduleFileExtensions": [

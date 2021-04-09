@@ -1,5 +1,8 @@
 @import 'codemirror/lib/codemirror.css';
 @import 'codemirror/theme/cobalt.css';
+@import 'prismjs/themes/prism-dark.css';
+
+@import 'codemirror/addon/hint/show-hint.css';
 
 .CodeMirror {
   border: 1px solid #eae9e9;

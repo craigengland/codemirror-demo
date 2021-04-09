@@ -1,8 +1,12 @@
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript';
-
+import 'codemirror/addon/hint/show-hint';
+import 'codemirror/addon/hint/javascript-hint';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import { CodeJar } from 'codejar';
+import { withLineNumbers } from 'codejar/linenumbers';
 
+import Prism from 'prismjs';
 import './main.css';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const textarea = document.querySelector('.code');
   const select = document.querySelector('#theme');
   let theme = 'default';
-
   const editor = CodeMirror(
     function (el) {
       textarea.parentNode.replaceChild(el, textarea);
@@ -21,22 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
       value: textarea.innerHTML,
       theme: theme,
       tabSize: 2,
+      extraKeys: { 'Ctrl-Space': 'autocomplete' },
     }
   );
-
+  editor.showHint();
   select.addEventListener('change', (e) => {
     theme = e.target.value;
     editor.setOption('theme', theme);
   });
-
   const container = document.getElementById('container');
-
   const code = `
   (function (global, undefined) {
     "use strict";
     undefinedVariable = {};
     undefinedVariable.prop = 5;
-
     function initializeProperties(target, members) {
       var keys = Object.keys(members);
       var properties;
@@ -66,20 +67,16 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.defineProperties(target, properties);
       }
     }
-
     (function (rootNamespace) {
-
       // Create the rootNamespace in the global namespace
       if (!global[rootNamespace]) {
         global[rootNamespace] = Object.create(Object.prototype);
       }
-
       // Cache the rootNamespace we just created in a local variable
       var _rootNamespace = global[rootNamespace];
       if (!_rootNamespace.Namespace) {
         _rootNamespace.Namespace = Object.create(Object.prototype);
       }
-
       function defineWithParent(parentNamespace, name, members) {
         /// <summary locid="1">
         /// Defines a new namespace with the specified name, under the specified parent namespace.
@@ -98,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
         /// </returns>
         var currentNamespace = parentNamespace,
           namespaceFragments = name.split(".");
-
         for (var i = 0, len = namespaceFragments.length; i < len; i++) {
           var namespaceName = namespaceFragments[i];
           if (!currentNamespace[namespaceName]) {
@@ -108,14 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
           }
           currentNamespace = currentNamespace[namespaceName];
         }
-
         if (members) {
           initializeProperties(currentNamespace, members);
         }
-
         return currentNamespace;
       }
-
       function define(name, members) {
         /// <summary locid="6">
         /// Defines a new namespace with the specified name.
@@ -131,20 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
         /// </returns>
         return defineWithParent(global, name, members);
       }
-
       // Establish members of the "WinJS.Namespace" namespace
       Object.defineProperties(_rootNamespace.Namespace, {
-
         defineWithParent: { value: defineWithParent, writable: true, enumerable: true },
-
         define: { value: define, writable: true, enumerable: true }
-
       });
-
     })("WinJS");
-
     (function (WinJS) {
-
       function define(constructor, instanceMembers, staticMembers) {
         /// <summary locid="8">
         /// Defines a class using the given constructor and with the specified instance members.
@@ -170,7 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return constructor;
       }
-
       function derive(baseClass, constructor, instanceMembers, staticMembers) {
         /// <summary locid="13">
         /// Uses prototypal inheritance to create a sub-class based on the supplied baseClass parameter.
@@ -207,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
           return define(constructor, instanceMembers, staticMembers);
         }
       }
-
       function mix(constructor) {
         /// <summary locid="15">
         /// Defines a class using the given constructor and the union of the set of instance members
@@ -226,28 +210,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return constructor;
       }
-
       // Establish members of "WinJS.Class" namespace
       WinJS.Namespace.define("WinJS.Class", {
         define: define,
         derive: derive,
         mix: mix
       });
-
     })(WinJS);
-
   })(this);
   `;
-
   const m = monaco.editor.create(container, {
     value: code,
     language: 'javascript',
     theme: 'vs',
     automaticLayout: true,
+    minimap: {
+      enabled: false,
+    },
   });
   const monacoSelect = document.querySelector('#monaco-theme');
   monacoSelect.addEventListener('change', (e) => {
     const selected = e.target.value;
     monaco.editor.setTheme(selected);
   });
+
+  // Codejar
+  let editorCode = document.querySelector('.editor');
+
+  const highlight = (editorCode) => {
+    const code = editorCode.textContent;
+    // Do something with code and set html.
+    editorCode.innerHTML = code;
+  };
+
+  let jar = CodeJar(editorCode, withLineNumbers(Prism.highlightElement));
+  jar.updateCode(`let foo = bar`);
 });

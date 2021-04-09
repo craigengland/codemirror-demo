@@ -5,10 +5,11 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const libraryName = 'Name';
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   entry: ['./src/main.js'],
-  mode: 'none',
+  mode: isDevelopment ? 'development' : 'production',
   plugins: [
     new MiniCssExtractPlugin({ filename: '[name].css' }),
     new MonacoWebpackPlugin({
