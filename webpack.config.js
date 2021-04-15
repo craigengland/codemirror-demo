@@ -10,12 +10,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 module.exports = {
   entry: ['./src/main.js'],
   mode: isDevelopment ? 'development' : 'production',
-  plugins: [
-    new MiniCssExtractPlugin({ filename: '[name].css' }),
-    new MonacoWebpackPlugin({
-      languages: ['javascript'],
-    }),
-  ],
+  plugins: [new MiniCssExtractPlugin({ filename: '[name].css' })],
   module: {
     rules: [
       {

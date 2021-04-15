@@ -1,7 +1,8 @@
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript';
-import 'codemirror/addon/hint/show-hint';
-import 'codemirror/addon/hint/javascript-hint';
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/edit/matchbrackets';
+
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { CodeJar } from 'codejar';
 import { withLineNumbers } from 'codejar/linenumbers';
@@ -24,10 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
       value: textarea.innerHTML,
       theme: theme,
       tabSize: 2,
-      extraKeys: { 'Ctrl-Space': 'autocomplete' },
+      autoCloseBrackets: true,
+      matchBrackets: true,
     }
   );
-  editor.showHint();
+
   select.addEventListener('change', (e) => {
     theme = e.target.value;
     editor.setOption('theme', theme);
