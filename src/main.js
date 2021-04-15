@@ -1,5 +1,5 @@
 import CodeMirror from 'codemirror';
-import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/powershell/powershell';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/edit/matchbrackets';
 
@@ -43,7 +43,13 @@ document.addEventListener('DOMContentLoaded', () => {
    * Ace
    */
 
-  ace.edit('editor', {
+  const aceSelect = document.querySelector('#ace-theme');
+  aceSelect.addEventListener('change', (e) => {
+    const aceTheme = e.target.value;
+    aceEditor.setTheme(`ace/theme/${aceTheme}`);
+  });
+
+  const aceEditor = ace.edit('editor', {
     mode: 'ace/mode/powershell',
     theme: 'ace/theme/github',
     maxLines: 50,

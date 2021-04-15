@@ -59,14 +59,20 @@ function add(a, b) {
           <code>ctrl+space</code> to activate autocompletion in the above
           editor.
         </li>
-        <li>
-          492kb (including autocomplete function) - 463kb without * Before
-          gzipping
-        </li>
+        <li>60kb gzipped</li>
       </ul>
     </div>
 
     <h2 style="text-align: center; margin: 1rem 0">Ace</h2>
+    <select
+      name="ace-theme"
+      id="ace-theme"
+      style="margin: auto; display: block; margin-bottom: 40px"
+    >
+      <option value="github" selected="selected">Default</option>
+      <option value="solarized_dark">Dark</option>
+    </select>
+
     <pre id="editor"></pre>
     <div style="max-width: 800px; margin: 0 auto 40px">
       <h4>What we get:</h4>
