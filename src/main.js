@@ -3,6 +3,8 @@ import 'codemirror/mode/javascript/javascript';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/edit/matchbrackets';
 
+import 'ace-builds';
+import 'ace-builds/webpack-resolver';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { CodeJar } from 'codejar';
 import { withLineNumbers } from 'codejar/linenumbers';
@@ -11,7 +13,9 @@ import Prism from 'prismjs';
 import './main.css';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Codemirror
+  /**
+   * Codemirror
+   */
   const textarea = document.querySelector('.code');
   const select = document.querySelector('#theme');
   let theme = 'default';
@@ -34,6 +38,23 @@ document.addEventListener('DOMContentLoaded', () => {
     theme = e.target.value;
     editor.setOption('theme', theme);
   });
+
+  /**
+   * Ace
+   */
+
+  ace.edit('editor', {
+    mode: 'ace/mode/powershell',
+    theme: 'ace/theme/github',
+    maxLines: 50,
+    minLines: 5,
+    fontSize: 14,
+  });
+
+  /**
+   * Monaco
+   */
+
   const container = document.getElementById('container');
   const code = `
   (function (global, undefined) {
@@ -236,7 +257,10 @@ document.addEventListener('DOMContentLoaded', () => {
     monaco.editor.setTheme(selected);
   });
 
-  // Codejar
+  /**
+   * Codejar
+   */
+
   let editorCode = document.querySelector('.editor');
 
   const highlight = (editorCode) => {
