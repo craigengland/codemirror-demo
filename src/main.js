@@ -1,15 +1,19 @@
 import CodeMirror from 'codemirror';
-import 'codemirror/mode/powershell/powershell';
+import { variables } from './constants/variables';
+import 'codemirror/mode/php/php';
 import 'codemirror/addon/edit/closebrackets';
 import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/hint/show-hint';
 
 import 'ace-builds';
 import 'ace-builds/webpack-resolver';
 import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 import { CodeJar } from 'codejar';
+import hljs from 'highlight.js';
+import javascript from 'highlight.js/lib/languages/javascript';
+import Prism from 'prismjs';
 import { withLineNumbers } from 'codejar/linenumbers';
 
-import Prism from 'prismjs';
 import './main.css';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,14 +29,39 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       lineNumbers: true,
-      mode: 'javascript',
+      mode: 'php',
       value: textarea.innerHTML,
       theme: theme,
       tabSize: 2,
       autoCloseBrackets: true,
       matchBrackets: true,
+      extraKeys: { 'Ctrl-Space': 'autocomplete' },
     }
   );
+
+  editor.getDoc().setValue(`<?php $config['macanta_verson'] = '%tag%'; ?>`);
+
+  const btn = document.querySelector('.get-code');
+  const submit = document.querySelector('.submit');
+  btn.addEventListener('click', (e) => {
+    const value = editor.getValue();
+    submit.textContent = value;
+  });
+
+  editor.on('keyHandled', function (instance, name, e) {
+    if (name == 'Ctrl-Space') {
+      var options = {
+        hint: function () {
+          return {
+            from: editor.getDoc().getCursor(),
+            to: editor.getDoc().getCursor(),
+            list: variables,
+          };
+        },
+      };
+      editor.showHint(options);
+    }
+  });
 
   select.addEventListener('change', (e) => {
     theme = e.target.value;
@@ -267,14 +296,23 @@ document.addEventListener('DOMContentLoaded', () => {
    * Codejar
    */
 
-  let editorCode = document.querySelector('.editor');
-
-  const highlight = (editorCode) => {
-    const code = editorCode.textContent;
-    // Do something with code and set html.
-    editorCode.innerHTML = code;
+  hljs.registerLanguage('javascript', javascript);
+  const highlight = (editor) => {
+    // highlight.js does not trims old tags,
+    // let's do it by this hack.
+    editor.textContent = editor.textContent;
+    Prism.highlightElement(editor);
   };
 
-  let jar = CodeJar(editorCode, withLineNumbers(Prism.highlightElement));
-  jar.updateCode(`let foo = bar`);
+  let editorCode = document.querySelector('.editor');
+
+  let jar = CodeJar(editorCode, withLineNumbers(highlight), { tab: '  ' });
+  jar.updateCode(`let foo = bar; \nfunction() {\n  something();\n}`);
 });
+
+// #= require CodeMirror.js
+// #= require CodeMirror-clike.js
+// #= require CodeMirror-xml.js
+// #= require CodeMirror-htmlmixed.js
+// #= require CodeMirror-mode.js
+// #= require CodeMirror-hint.js

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../dist/main.css" />
-    <title>Playground</title>
+    <title>Testing</title>
     <style>
       .editor {
         border-radius: 6px;
@@ -33,6 +33,7 @@
   </head>
   <body>
     <h1 style="text-align: center">Code Editors</h1>
+
     <h2 style="text-align: center; margin: 1rem 0">CodeMirror</h2>
     <select
       name="theme"
@@ -42,22 +43,29 @@
       <option value="default" selected="selected">Default</option>
       <option value="cobalt">Cobalt</option>
     </select>
-    <textarea name="" id="" cols="30" rows="10" class="code">
-function add(a, b) {
-  return a + b;
-}
-</textarea
-    >
+    <textarea name="" id="" cols="30" rows="10" class="code"> </textarea>
+    <div style="text-align: center; margin: 1rem 0">
+      <p>
+        Enter the full contents of the file which you wish to be uploaded. You
+        can use <strong>these variables</strong> to insert various strings into
+        your config files.
+      </p>
+      <button type="button" class="get-code">Get the code in the editor</button>
+      <p>The config file reads:</p>
+      <p class="submit"></p>
+    </div>
     <div style="max-width: 800px; margin: 0 auto 40px">
       <h4>What we get:</h4>
       <ul>
-        <li>Syntax highlighting</li>
+        <li>Syntax highlighting built-in</li>
         <li>Different themes to switch between light and dark</li>
         <li>
-          Autocompletion - through the use of a plugin. Debateable whether this
-          is actually helpful, the plugin not the actual feature. You can press
-          <code>ctrl+space</code> to activate autocompletion in the above
-          editor.
+          Bracket and comma completion through 2 add-ons (Good that this is
+          separate as we might not need it and save on bundle size)
+        </li>
+        <li>
+          Add custom autocompletion list and trigger via a keydown event
+          (Ctrl-Space to activate predefined variables)
         </li>
         <li>60kb gzipped</li>
       </ul>
@@ -77,9 +85,10 @@ function add(a, b) {
     <div style="max-width: 800px; margin: 0 auto 40px">
       <h4>What we get:</h4>
       <ul>
-        <li>Theme</li>
-        <li>Bracket and comma completion</li>
+        <li>Theming</li>
+        <li>Bracket and quotation completion.</li>
         <li>Tonnes of community support</li>
+        <li>Feels very much like an editor instead of a hyped up textarea</li>
         <li>97kb gzipped</li>
       </ul>
     </div>
@@ -117,15 +126,19 @@ function add(a, b) {
 
     <h2 style="text-align: center; margin: 1rem 0">CodeJar</h2>
     <section>
-      <div class="editor"></div>
+      <div class="editor language-js"></div>
     </section>
     <div style="max-width: 800px; margin: 0 auto 40px">
       <h4>What we get:</h4>
       <ul>
-        <li>Lightweight = ony 2kb</li>
+        <li>Lightweight = only 2kb</li>
         <li>
           This is something that we could extend upon whereas the other 2
           options are fully fledged solutions with enterprise backing.
+        </li>
+        <li>
+          Autocomplete is built-in plus automatic indenting when adding new
+          lines
         </li>
         <li>Looks like just a single maintainer.</li>
       </ul>

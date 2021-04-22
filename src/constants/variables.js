@@ -1,0 +1,17 @@
+export const variables = [
+  '%startrev%',
+  '%tag%',
+  '%count%',
+  '%deployer%',
+  '%project%',
+  '%projectperma%',
+  '%status%',
+  '%endrev%',
+  '%branch%',
+  '%servers%',
+  '%commitrange',
+  '%projecturl%',
+  '%deploymenturl%',
+  '%environment%',
+  '%path%',
+];
