@@ -309,10 +309,3 @@ document.addEventListener('DOMContentLoaded', () => {
   let jar = CodeJar(editorCode, withLineNumbers(highlight), { tab: '  ' });
   jar.updateCode(`let foo = bar; \nfunction() {\n  something();\n}`);
 });
-
-// #= require CodeMirror.js
-// #= require CodeMirror-clike.js
-// #= require CodeMirror-xml.js
-// #= require CodeMirror-htmlmixed.js
-// #= require CodeMirror-mode.js
-// #= require CodeMirror-hint.js
