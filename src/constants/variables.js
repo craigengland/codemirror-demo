@@ -14,5 +14,4 @@ export const variables = [
   '%deploymenturl%',
   '%environment%',
   '%path%',
-  '%test',
 ];
